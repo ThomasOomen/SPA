@@ -13,7 +13,6 @@ app.config.from_object(__name__)
 
 CORS(app, resources={r"/*": {'origins': "*"}})
 
-
 @app.route('/greeting', methods=['GET'])
 def greeting():
     return HomeController.greeting()
@@ -25,6 +24,11 @@ def getUsername():
 @app.route('/get/athlete', methods=['GET'])
 def getAthlete():
     return StravaController.getStravaAthlete()
+
+@app.route('/get/athlete/stats', methods=['GET'])
+def getAthleteStats():
+    athleteId = request.args
+    return StravaController.getStravaAthletestats(athleteId)
 
 @app.route('/get/ride/map', methods=['GET'])
 def getMap():

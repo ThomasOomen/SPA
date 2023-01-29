@@ -1,8 +1,6 @@
 <template lang="">
     <div>
         <Doughnut :data="chartData" :options="chartOptions"/>
-        {{RideTypes}}
-        hello ride types :)
     </div>
 </template>
 <script lang="ts">

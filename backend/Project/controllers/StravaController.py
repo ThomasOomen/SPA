@@ -14,13 +14,24 @@ class StravaController:
 
     def getStravaAthlete():
         try:
-            Headers = {'Authorization': os.environ.get('AUTHORIZATION')}
-            # Headers = {'Authorization': 'Bearer a534e2a8f444bb6a3f84de209da3dcf769d14eb2'}
-            response = requests.get(
-                'https://www.strava.com/api/v3/athlete', headers=Headers)
+            load_dotenv('backend\.env')
+            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
+            response = requests.get('https://www.strava.com/api/v3/athlete', headers=Headers).json()
             return helpers.Responses.Response.getSuccesfullResponse('Athlete retrieved succesfully', response)
         except:
             return helpers.Responses.Response.getFailedResponse('failed to receive athlete')
+
+    def getStravaAthletestats(athleteId):
+        try:
+            athleteId = athleteId['athleteId']
+            print(athleteId)
+            load_dotenv('backend\.env')
+            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
+            response = requests.get('https://www.strava.com/api/v3/athletes/'+ athleteId +'/stats', headers=Headers).json()
+            print(response)
+            return helpers.Responses.Response.getSuccesfullResponse('Activities retrieved succesfully', response)
+        except:
+            return helpers.Responses.Response.getFailedResponse('failed to receive activities')
 
     def getActivities(self):
         try:
