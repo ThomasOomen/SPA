@@ -3,3 +3,4 @@ backend/.env
 *.pyc
 node_module
 node_modules/
+.vscode/settings.json
