@@ -1,6 +1,5 @@
 <template lang="">
     <div>
-         Total distance per ride type :0
     </div>
 </template>
 <script lang="ts">

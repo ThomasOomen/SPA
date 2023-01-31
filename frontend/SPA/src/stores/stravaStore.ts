@@ -14,6 +14,8 @@ export const useStravaStore = defineStore({
         map : '',
         athleteStats: {},
         chart: '',
+        totalRideTime: '',
+        averageSpeed: ''
     }),
 
     getters: {
@@ -44,6 +46,18 @@ export const useStravaStore = defineStore({
 
         getterChart(): any {
             return this.chart
+        },
+
+        getterTotalDistance(): any {
+            return this.totalDistance
+        },
+
+        getterTotalRideTime(): any {
+            return this.totalRideTime
+        },
+
+        getterAverageSpeed(): any {
+            return this.averageSpeed
         }
     }, 
 
@@ -81,6 +95,8 @@ export const useStravaStore = defineStore({
                 this.activities = response.data.allActivities.data
                 this.totalDistance = response.data.totalDistance
                 this.rideTypes = response.data.rideTypes
+                this.totalRideTime = response.data.totalRideTime
+                this.averageSpeed = response.data.averageSpeed
             }).catch(error => {
                 console.log(error)
             })

@@ -6,6 +6,8 @@ from flask import Flask, jsonify
 import helpers.Responses
 import helpers.Map
 import helpers.Chart
+import numpy as np
+from datetime import timedelta
 
 
 class StravaController:
@@ -62,11 +64,28 @@ class StravaController:
         return ''
 
     def calculateTotalDistance(self, allActivities):
-        totalDistance = 0
-        for item in allActivities['data']:
-            totalDistance += (item['distance']/1000)
+        rideDistance = np.array([])
+        for activity in allActivities['data']:
+            rideDistance = np.append(rideDistance, activity['distance']/1000)
 
-        return totalDistance
+        return float(format(np.sum(rideDistance), '.2f'))
+
+    def getTotalRideTime(self, allActivities):
+        totalTimeSpend = np.array([])
+        for activity in allActivities['data']:
+            totalTimeSpend = np.append(totalTimeSpend, activity['elapsed_time'])
+
+        totalTimeSpend = np.sum(totalTimeSpend)
+        totalTimeSpend = timedelta(seconds=totalTimeSpend)
+        return str(totalTimeSpend)
+
+    def getAverageSpeed(self, allActivities):
+        averageSpeed = np.array([])
+        for activity in allActivities['data']:
+            averageSpeed = np.append(averageSpeed, activity['average_speed'])
+
+        averageSpeed = np.average(averageSpeed)
+        return float(format(np.sum(averageSpeed), '.2f'))
 
     def getActivityTypes(self, allActivities):
         countRides = 0

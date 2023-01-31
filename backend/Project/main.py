@@ -46,11 +46,15 @@ def getAllActivities():
     allActivities = stravaController.getActivities()
     totalDistance = stravaController.calculateTotalDistance(allActivities) 
     rideTypes = stravaController.getActivityTypes(allActivities)
+    totalRideTime = stravaController.getTotalRideTime(allActivities)
+    averageSpeed = stravaController.getAverageSpeed(allActivities)
 
     result = {
         'allActivities': allActivities,
         'totalDistance': totalDistance,
         'rideTypes': rideTypes,
+        'totalRideTime': totalRideTime,
+        'averageSpeed': averageSpeed
     }
 
     return result
