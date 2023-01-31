@@ -35,6 +35,11 @@ def getMap():
     mapPolyLine = request.args
     return StravaController.getMap(mapPolyLine['polyline'], mapPolyLine['startingLocationLat'], mapPolyLine['startingLocationLon'])
 
+@app.route('/get/stream', methods=['GET'])
+def getStream():
+    id = request.args
+    return StravaController.getChart(id)
+
 @app.route('/get/all/activities', methods=['GET'])
 def getAllActivities():
     stravaController = StravaController()

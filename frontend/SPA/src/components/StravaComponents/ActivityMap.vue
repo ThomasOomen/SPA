@@ -1,5 +1,7 @@
 <template lang="">
-    <div v-html="map" v-bind="getMapWithPolyLine">
+    <div v-if="checkIfMapIsBuildable">
+        <div v-html="map" v-bind="getMapWithPolyLine">
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -14,7 +16,9 @@ export default defineComponent ({
     setup() {
         const stravaStore = useStravaStore();
         let activeActivity = toRaw(stravaStore.getActiveActivity)
-        stravaStore.getRideMap(activeActivity)
+        if(activeActivity != '') {
+            stravaStore.getRideMap(activeActivity)
+        }
 
         return { stravaStore }
     },
@@ -26,12 +30,19 @@ export default defineComponent ({
     },
 
     computed: {
-        getMapWithPolyLine() :any {
+        getMapWithPolyLine(): any {
             this.map = this.stravaStore.getMap
-            console.log('heyoo')
+        },
+
+        checkIfMapIsBuildable(): any {
+            let buildable = toRaw(this.stravaStore.getMap)
+            if(buildable != '') {
+                return true
+            } else {
+                return false
+            }
         }
     }
-    
 })
 </script>
 <style lang="scss">

@@ -3,10 +3,10 @@ import requests
 from dotenv import load_dotenv
 from flask_api import status
 from flask import Flask, jsonify
-
-
 import helpers.Responses
 import helpers.Map
+import helpers.Chart
+
 
 class StravaController:
     def __init__(self):
@@ -15,8 +15,10 @@ class StravaController:
     def getStravaAthlete():
         try:
             load_dotenv('backend\.env')
-            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
-            response = requests.get('https://www.strava.com/api/v3/athlete', headers=Headers).json()
+            Headers = {'Authorization': 'Bearer ' +
+                os.environ.get('ACCESS_TOKEN')}
+            response = requests.get(
+                'https://www.strava.com/api/v3/athlete', headers=Headers).json()
             return helpers.Responses.Response.getSuccesfullResponse('Athlete retrieved succesfully', response)
         except:
             return helpers.Responses.Response.getFailedResponse('failed to receive athlete')
@@ -26,8 +28,10 @@ class StravaController:
             athleteId = athleteId['athleteId']
             print(athleteId)
             load_dotenv('backend\.env')
-            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
-            response = requests.get('https://www.strava.com/api/v3/athletes/'+ athleteId +'/stats', headers=Headers).json()
+            Headers = {'Authorization': 'Bearer ' +
+                os.environ.get('ACCESS_TOKEN')}
+            response = requests.get(
+                'https://www.strava.com/api/v3/athletes/' + athleteId + '/stats', headers=Headers).json()
             print(response)
             return helpers.Responses.Response.getSuccesfullResponse('Activities retrieved succesfully', response)
         except:
@@ -36,8 +40,10 @@ class StravaController:
     def getActivities(self):
         try:
             load_dotenv('backend\.env')
-            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
-            response = requests.get('https://www.strava.com/api/v3/athlete/activities', headers=Headers).json()
+            Headers = {'Authorization': 'Bearer ' +
+                os.environ.get('ACCESS_TOKEN')}
+            response = requests.get(
+                'https://www.strava.com/api/v3/athlete/activities', headers=Headers).json()
             return helpers.Responses.Response.getSuccesfullResponse('Activities retrieved succesfully', response)
         except:
             return helpers.Responses.Response.getFailedResponse('failed to receive activities')
@@ -75,11 +81,19 @@ class StravaController:
             'rides': countRides,
             'walks': countWalks
         }
-    
+
     def getMap(mapPolyLine, lat, long):
         result = helpers.Map.Map.drawMap(mapPolyLine, lat, long)
         iframe = result.get_root()._repr_html_()
         return iframe
-        
+
+    def getChart(activityId):
+        try:
+            load_dotenv('backend\.env')
+            Headers = {'Authorization': 'Bearer ' + os.environ.get('ACCESS_TOKEN')}
+            response = requests.get('https://www.strava.com/api/v3/activities/'+ activityId['id'] + '/streams?keys=time,altitude,velocity_smooth,grade_smooth&key_by_type=true&resolution=low', headers=Headers).json()
+            return helpers.Responses.Response.getSuccesfullResponse('Stream retrieved succesfully', response)
+        except:
+            return helpers.Responses.Response.getFailedResponse('failed to receive stream')
 
 

@@ -2,7 +2,7 @@
     <div>
         <h2>Biggest riding distance</h2>
         <div>
-        <h3>{{stravaStore.getterAthleteStats.biggest_ride_distance}} km</h3>
+        <h3>{{stravaStore.getterAthleteStats.biggest_ride_distance /1000}} km</h3>
     </div>
     </div>
 

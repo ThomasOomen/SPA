@@ -49,9 +49,13 @@ export default defineComponent({
         const stravaStore = useStravaStore()
         if(Object.keys(stravaStore.activities).length === 0) {
             stravaStore.getAllActivities()
-            stravaStore.getAthlete()
-            stravaStore.getAthleteStats(toRaw(stravaStore.getterAthleteStats))
         }
+        
+        if(Object.keys(stravaStore.athlete).length === 0) {
+            stravaStore.getAthlete()
+        }
+
+        // stravaStore.setActiveActivity()
 
         return { stravaStore }
     },

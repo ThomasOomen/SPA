@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div class="grid-component">
         <div>
             <h3>{{item.name}}</h3>
         </div>
@@ -27,4 +27,10 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
+
+.grid-component {
+        box-shadow: 2px 2px 5px #000000;
+        margin: 5px;
+        background-color: #18242c;
+    }
 </style>

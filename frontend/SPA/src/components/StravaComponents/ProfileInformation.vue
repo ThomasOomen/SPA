@@ -18,6 +18,8 @@
                 <h5>Bio: {{ stravaStore.athlete.bio}}</h5> 
             </div>
         </div>
+        <button class="p-2 btn btn-primary" @click="$router.push({name:'strava/activities'})">View all activities
+        </button>
     </div>
 </template>
 <script lang="ts">

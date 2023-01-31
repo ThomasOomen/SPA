@@ -4,4 +4,4 @@ backend/.env
 node_module
 node_modules/
 .vscode/settings.json
-backend/Project/notes.txt
+backend/notes.txt

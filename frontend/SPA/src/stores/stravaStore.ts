@@ -13,6 +13,7 @@ export const useStravaStore = defineStore({
         rideTypes: {},
         map : '',
         athleteStats: {},
+        chart: '',
     }),
 
     getters: {
@@ -39,12 +40,17 @@ export const useStravaStore = defineStore({
 
         getterAthleteStats(): any {
             return this.athleteStats
+        },
+
+        getterChart(): any {
+            return this.chart
         }
     }, 
 
     actions: {
 
         async getAthlete() {
+            console.log('heyooo get athlete')
             await axios.get('http://localhost:5000/get/athlete').then(async response => {
                 this.athlete = response.data.data
                 await axios.get(
@@ -90,6 +96,7 @@ export const useStravaStore = defineStore({
         },
 
         async getRideMap(activeActivity: any) {
+            console.log(activeActivity.map.summary_polyline)
             await axios.get('http://localhost:5000/get/ride/map', 
                 {
                     params: { 
@@ -104,9 +111,23 @@ export const useStravaStore = defineStore({
             })
         },
 
-        async getAthleteStats(athlete: any) {
-            console.log(athlete.id)
+        async getChart(activeActivity: any) {
+            await axios.get('http://localhost:5000/get/stream',
+            {
+                params: {
+                    id: activeActivity.id
+                }
+            }).then(response => {
+                this.chart = response.data
+            }).catch(error => {
+                console.log(error)
+            })
+        },
 
+        setActiveActivityToEmpty() {
+            this.activeActivity = ''
+            this.chart = ''
+            this.map = ''
         }
     }
 })

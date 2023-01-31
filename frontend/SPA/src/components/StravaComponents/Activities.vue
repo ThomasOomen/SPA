@@ -1,7 +1,7 @@
 <template lang="">
     <div>
         <perfect-scrollbar>
-            <Activity v-for="activity in allActivities" :key=activity.id :item="activity" class="p-1" @click="$emit('openActivity', activity.id)">
+            <Activity v-for="activity in allActivities" :key=activity.id :item="activity" class="p-1 activities" @click="$emit('openActivity', activity.id)">
 
             </Activity>
         </perfect-scrollbar>
@@ -51,7 +51,13 @@ export default defineComponent({
     }
 
     .ps {
-        height: 700px;
+        height: 100vh;
+    }
+
+    .grid-component {
+        box-shadow: 2px 2px 5px #000000;
+        margin: 5px;
+        background-color: #18242c;
     }
 </style>
 
