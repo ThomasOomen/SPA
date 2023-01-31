@@ -63,6 +63,7 @@ export default defineComponent({
         openActivity: async function (id: any) {
             this.stravaStore.searchActivity(id)
             this.activeActivity = this.stravaStore.getActiveActivity
+            this.$router.push({query: {id: id}})
             this.stravaStore.getRideMap(this.activeActivity)
             this.stravaStore.getChart(this.activeActivity)
         }
